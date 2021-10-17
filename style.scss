@@ -73,4 +73,39 @@ html, body {
 
     }
   }
+
+  .tool-settings {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .setting {
+      width: 100px;
+      padding: 1em;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      
+      label {
+        margin-right: 5px;
+      }
+
+      input {
+        margin: 0;
+        padding: 0;
+        width: 50px;
+        height: 50px;
+        font-size: 2em;
+        text-align: center;
+        -moz-appearance: textfield;
+        
+        &::-webkit-outer-spin-button,
+        &::-webkit-inner-spin-button {
+          -webkit-appearance: none;
+          margin: 0;
+        }
+      }
+    }
+  }
 }

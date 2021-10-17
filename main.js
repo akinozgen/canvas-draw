@@ -2,11 +2,34 @@ import './style.scss';
 import appState from './appState';
 
 const tools = Array.from(document.querySelectorAll('.tool'));
+const settings = Array.from(document.querySelectorAll('.tool-settings .setting'));
 const _canv = document.querySelector('.canvas canvas');
 const context = createCanvas({ canvas: _canv });
 
+settings.forEach(setting => {
+  let input = setting.querySelector('input');
+
+  if (appState.state.settings[setting.id]) {
+    input.value = appState.state.settings[setting.id];
+  }
+
+  input.onchange = settingUpdate;
+  input.oninput = settingUpdate;
+});
 tools.forEach(tool => tool.addEventListener('click', toolOnClick));
 
+function settingUpdate(e) {
+  let val = e.srcElement.value;
+  let container = e.path.filter(_ => _?.classList?.contains('setting'))[0];
+  if (!container) return;
+  let setting = container.id;
+
+  appState.commit(state => {
+    state.settings[setting] = val;
+    return state;
+  });
+}
+ 
 function toolOnClick(e) {
   tools.forEach(tool => tool.classList.remove('active'));
   const currentTool = e.path.filter(_ => _?.classList?.contains('tool'))[0];
@@ -34,8 +57,8 @@ function createCanvas({ canvas }) {
 }
 
 function updateCanvas({ position }) {
-  let size = 2;
-  let color = 'rgb(0,0,0)';
+  let size = appState.state.settings.size;
+  let color = appState.state.settings.color;
   let canvas = appState.state.canvas;
 
   if (appState.state.currentTool?.id === 'tool-pen') {
