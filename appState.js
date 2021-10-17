@@ -1,9 +1,10 @@
 export default {
     state: {
-        currentTool: null
+        currentTool: null,
+        context: null,
+        canvas: null
     },
     commit(callback) {
-        this.state = callback({ state: this.state });
-        console.log(this.state);
+        this.state = callback(this.state);
     }
 };
