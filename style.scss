@@ -1,0 +1,76 @@
+html, body {
+  background-color: rgb(247, 237, 237);
+}
+ 
+#app {
+  font-family: 'Poppins', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+  margin-top: 60px;
+
+  .toolbelt {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+
+    .tool {
+      width: 60px;
+      height: 60px;
+      min-width: 60px;
+      font-size: 1.2rem;
+      margin-right: 0.25em;
+      border-radius: 100px;
+      border: 0;
+      background-color: #2c3e50;
+      color: white;
+      cursor: pointer;
+      transition: all .3s ease;
+      box-shadow:
+        4.1px 2.6px 5.8px -18px rgba(0, 0, 0, 0.076),
+        7.2px 4.6px 10.2px -18px rgba(0, 0, 0, 0.107),
+        10.1px 6.3px 13.9px -18px rgba(0, 0, 0, 0.125),
+        13.9px 8.8px 18.9px -18px rgba(0, 0, 0, 0.14),
+        27px 17px 36px -18px rgba(0, 0, 0, 0.19)
+      ;
+
+      &.active {
+        background-color: #437fbb;
+      }
+
+      &:hover {
+        box-shadow:
+          4.1px 2.6px 7.2px -8px rgba(0, 0, 0, 0.076),
+          7.2px 4.6px 12.1px -8px rgba(0, 0, 0, 0.107),
+          10.1px 6.3px 15.7px -8px rgba(0, 0, 0, 0.125),
+          13.9px 8.8px 20px -8px rgba(0, 0, 0, 0.14),
+          27px 17px 36px -8px rgba(0, 0, 0, 0.19)
+        ;
+      }
+    }
+  }
+
+  .canvas {
+    margin: 5em auto 0 auto;
+    width: 650px;
+    height: 650px;
+
+    canvas {
+      border-radius: 8px;
+      width: 100%;
+      aspect-ratio: 1;
+      border: 5px solid #2c3e50;
+      box-shadow:
+        2.8px 2.8px 2.2px rgba(0, 0, 0, 0.02),
+        6.7px 6.7px 5.3px rgba(0, 0, 0, 0.028),
+        12.5px 12.5px 10px rgba(0, 0, 0, 0.035),
+        22.3px 22.3px 17.9px rgba(0, 0, 0, 0.042),
+        41.8px 41.8px 33.4px rgba(0, 0, 0, 0.05),
+        100px 100px 80px rgba(0, 0, 0, 0.07)
+      ;
+
+    }
+  }
+}

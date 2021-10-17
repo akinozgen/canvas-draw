@@ -3,11 +3,45 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,400;0,700;1,200;1,400;1,700&display=swap" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite App</title>
+    <title>Canvas Draw</title>
   </head>
   <body>
-    <div id="app"></div>
+    <div id="app">
+      <div class="toolbelt">
+        <button class="tool" id="tool-pen">
+          <i class="fas fa-pen"></i>
+        </button>
+        <button class="tool" id="tool-rectangle">
+          <i class="far fa-square"></i>
+        </button>
+        <button class="tool" id="tool-circle">
+          <i class="far fa-circle"></i>
+        </button>
+        <button class="tool" id="tool-fill">
+          <i class="fas fa-fill-drip"></i>
+        </button>
+        <button class="tool" id="tool-eraser">
+          <i class="fas fa-eraser"></i>
+        </button>
+        <button class="tool" id="tool-line">
+          <i class="fas fa-arrows-alt-h"></i>
+        </button>
+        <button class="tool" id="tool-brush">
+          <i class="fas fa-brush"></i>
+        </button>
+        <button class="tool" id="tool-save">
+          <i class="fas fa-save"></i>
+        </button>
+      </div>
+      <div class="canvas">
+        <canvas></canvas>
+      </div>
+    </div>
+    <script src="https://kit.fontawesome.com/4bd12d0ec5.js" crossorigin="anonymous"></script>
     <script type="module" src="/main.js"></script>
   </body>
 </html>

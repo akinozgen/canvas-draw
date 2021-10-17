@@ -1,6 +1,19 @@
-import './style.css'
+import './style.scss';
+import appState from './appState';
 
-document.querySelector('#app').innerHTML = `
-  <h1>Hello Vite!</h1>
-  <a href="https://vitejs.dev/guide/features.html" target="_blank">Documentation</a>
-`
+const tools = Array.from(document.querySelectorAll('.tool'));
+
+tools.forEach(tool => tool.addEventListener('click', toolOnClick));
+
+function toolOnClick(e) {
+  tools.forEach(tool => tool.classList.remove('active'));
+  const currentTool = e.path.filter(_ => _?.classList?.contains('tool'))[0];
+  if (!currentTool) return;
+
+  currentTool.classList.add('active');
+  
+  appState.commit((state) => {
+    state.currentTool = currentTool;
+    return state;
+  });
+}
