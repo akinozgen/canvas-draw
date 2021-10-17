@@ -5,6 +5,7 @@ const tools = Array.from(document.querySelectorAll('.tool'));
 const settings = Array.from(document.querySelectorAll('.tool-settings .setting'));
 const _canv = document.querySelector('.canvas canvas');
 const context = createCanvas({ canvas: _canv });
+const btnSave = tools.filter(t => t.id === 'tool-save')[0];
 
 settings.forEach(setting => {
   let input = setting.querySelector('input');
@@ -19,7 +20,6 @@ settings.forEach(setting => {
 
 tools.forEach(tool => tool.addEventListener('click', toolOnClick));
 
-
 appState.state.canvas.addEventListener('mouseup', mouseReleased);
 appState.state.canvas.addEventListener('mouseleave', mouseReleased);
 
@@ -33,6 +33,8 @@ appState.state.canvas.addEventListener('mousemove', (e) => {
   
   updateCanvas({ position: { x: e.layerX, y: e.layerY } });
 });
+
+btnSave.onclick = save;
 
 function settingUpdate(e) {
   let val = e.srcElement.value;
@@ -49,7 +51,7 @@ function settingUpdate(e) {
 function toolOnClick(e) {
   tools.forEach(tool => tool.classList.remove('active'));
   const currentTool = e.path.filter(_ => _?.classList?.contains('tool'))[0];
-  if (!currentTool) return;
+  if (!currentTool || currentTool.id === 'tool-save') return;
 
   currentTool.classList.add('active');
 
@@ -112,3 +114,12 @@ function mouseReleased() {
   });
 }
 
+function save(e) {
+  let data = appState.state.canvas.toDataURL("image/jpeg", 1.0);
+
+  let a = document.createElement('a');
+  a.href = data;
+  a.download = prompt('Filename: ', `${Date.now()}.jpg`);
+  document.body.appendChild(a);
+  a.click();
+}
