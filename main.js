@@ -1,5 +1,6 @@
 import './style.scss';
 import appState from './appState';
+import FloodFill from 'q-floodfill';
 
 const tools = Array.from(document.querySelectorAll('.tool'));
 const settings = Array.from(document.querySelectorAll('.tool-settings .setting'));
@@ -22,6 +23,7 @@ tools.forEach(tool => tool.addEventListener('click', toolOnClick));
 
 appState.state.canvas.addEventListener('mouseup', mouseReleased);
 appState.state.canvas.addEventListener('mouseleave', mouseReleased);
+appState.state.canvas.addEventListener('click', bucketFill);
 
 appState.state.canvas.addEventListener('mousedown', () => appState.commit(state => {
   state.clicked = true;
@@ -142,4 +144,22 @@ function save(e) {
   a.download = prompt('Filename: ', `${Date.now()}.jpg`);
   document.body.appendChild(a);
   a.click();
+}
+
+function getPixelColor({ x, y }) {
+  const pixel = context.getImageData(x, y, 1, 1).data;
+  return `rgba(${pixel[0]}, ${pixel[1]}, ${pixel[2]}, ${pixel[3]})`;
+}
+
+function bucketFill(e) {
+  if (appState.state.currentTool?.id !== 'tool-fill') return;
+  const { layerX: x, layerY: y } = e;
+  const { canvas, settings } = appState.state;
+  
+  const imgData = context.getImageData(0, 0, canvas.width, canvas.height);
+  const ff = new FloodFill(imgData);
+
+  ff.fill(settings.color, x, y, 0);
+  context.putImageData(ff.imageData, 0, 0);
+  
 }

@@ -9,5 +9,8 @@
   "devDependencies": {
     "sass": "^1.43.2",
     "vite": "^2.6.4"
+  },
+  "dependencies": {
+    "q-floodfill": "^1.3.1"
   }
 }
