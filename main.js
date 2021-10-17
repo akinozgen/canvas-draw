@@ -53,6 +53,9 @@ function createCanvas({ canvas }) {
     return state;
   });
 
+  c.fillStyle = 'rgb(255, 255, 255)';
+  c.fillRect(0, 0, canvas.width, canvas.height);
+
   return c;
 }
 
@@ -60,13 +63,14 @@ function updateCanvas({ position }) {
   let size = appState.state.settings.size;
   let color = appState.state.settings.color;
   let canvas = appState.state.canvas;
+  let tool = appState.state.currentTool?.id;
 
-  if (appState.state.currentTool?.id === 'tool-pen') {
+  if (tool === 'tool-pen' || tool === 'tool-eraser') {
     context.beginPath();
   
     context.lineWidth = size;
     context.lineCap = "round";
-    context.strokeStyle = color;
+    context.strokeStyle = tool === 'tool-eraser' ? 'rgb(255, 255, 255)' : color;
     
     context.moveTo(position.x, position.y);
     context.lineTo(
@@ -80,7 +84,7 @@ function updateCanvas({ position }) {
     });
 
   }
-  
+
   context.stroke();
 }
 
