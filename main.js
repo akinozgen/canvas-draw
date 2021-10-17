@@ -16,7 +16,23 @@ settings.forEach(setting => {
   input.onchange = settingUpdate;
   input.oninput = settingUpdate;
 });
+
 tools.forEach(tool => tool.addEventListener('click', toolOnClick));
+
+
+appState.state.canvas.addEventListener('mouseup', mouseReleased);
+appState.state.canvas.addEventListener('mouseleave', mouseReleased);
+
+appState.state.canvas.addEventListener('mousedown', () => appState.commit(state => {
+  state.clicked = true;
+  return state;
+}));
+
+appState.state.canvas.addEventListener('mousemove', (e) => {
+  if (!appState.state.clicked) return;
+  
+  updateCanvas({ position: { x: e.layerX, y: e.layerY } });
+});
 
 function settingUpdate(e) {
   let val = e.srcElement.value;
@@ -96,18 +112,3 @@ function mouseReleased() {
   });
 }
 
-
-appState.state.canvas.addEventListener('mouseup', mouseReleased);
-appState.state.canvas.addEventListener('mouseleave', mouseReleased);
-
-
-appState.state.canvas.addEventListener('mousedown', () => appState.commit(state => {
-  state.clicked = true;
-  return state;
-}));
-
-appState.state.canvas.addEventListener('mousemove', (e) => {
-  if (!appState.state.clicked) return;
-  
-  updateCanvas({ position: { x: e.layerX, y: e.layerY } });
-});
