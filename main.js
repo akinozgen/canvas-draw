@@ -91,16 +91,23 @@ function updateCanvas({ position }) {
     context.lineCap = "round";
     context.strokeStyle = tool === 'tool-eraser' ? 'rgb(255, 255, 255)' : color;
 
+    context.shadowBlur = 0;
+    context.shadowOffsetX = 0;
+    context.shadowOffsetY = 0;
+    context.shadowColor = '';
+
+    if (tool === 'tool-eraser') {
+      context.shadowBlur = falloff;
+      context.shadowOffsetX = 0;
+      context.shadowOffsetY = 0;
+      context.shadowColor = 'rgb(255, 255, 255)';
+    }
+
     if (tool === 'tool-brush') {
       context.shadowBlur = falloff;
       context.shadowOffsetX = 0;
       context.shadowOffsetY = 0;
       context.shadowColor = color;
-    } else {
-      context.shadowBlur = 0;
-      context.shadowOffsetX = 0;
-      context.shadowOffsetY = 0;
-      context.shadowColor = '';
     }
     
     context.moveTo(position.x, position.y);
