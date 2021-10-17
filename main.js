@@ -79,16 +79,29 @@ function createCanvas({ canvas }) {
 
 function updateCanvas({ position }) {
   let size = appState.state.settings.size;
+  let falloff = appState.state.settings.falloff;
   let color = appState.state.settings.color;
   let canvas = appState.state.canvas;
   let tool = appState.state.currentTool?.id;
 
-  if (tool === 'tool-pen' || tool === 'tool-eraser') {
+  if (tool === 'tool-pen' || tool === 'tool-eraser' || tool === 'tool-brush') {
     context.beginPath();
   
     context.lineWidth = size;
     context.lineCap = "round";
     context.strokeStyle = tool === 'tool-eraser' ? 'rgb(255, 255, 255)' : color;
+
+    if (tool === 'tool-brush') {
+      context.shadowBlur = falloff;
+      context.shadowOffsetX = 0;
+      context.shadowOffsetY = 0;
+      context.shadowColor = color;
+    } else {
+      context.shadowBlur = 0;
+      context.shadowOffsetX = 0;
+      context.shadowOffsetY = 0;
+      context.shadowColor = '';
+    }
     
     context.moveTo(position.x, position.y);
     context.lineTo(

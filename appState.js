@@ -5,7 +5,8 @@ export default {
         canvas: null,
         settings: {
             size: 5,
-            color: 'rgba(0,0,0,1)'
+            color: 'rgba(0,0,0,1)',
+            falloff: 5
         }
     },
     commit(callback) {
