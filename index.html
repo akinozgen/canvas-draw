@@ -11,7 +11,7 @@
   </head>
   <body>
     <div id="app">
-      <div class="toolbelt">
+      <div class="toolbelt user-control">
         <button class="tool" id="tool-pen">
           <i class="fas fa-pen"></i>
         </button>
@@ -37,7 +37,7 @@
           <i class="fas fa-save"></i>
         </button>
       </div>
-      <div class="tool-settings">
+      <div class="tool-settings user-control">
         <div class="setting" id="color">
           <div class="color">
             <input type="color">
@@ -53,7 +53,10 @@
           <label>Falloff</label>
         </div>
       </div>
-      <div class="canvas">
+      <div class="canvas" id="canvas-holder">
+        <button id="toggle-fullscreen" class="icon-button">
+          <i class="fas fa-expand-alt"></i>
+        </button>
         <canvas width="650px" height="650px"></canvas>
       </div>
     </div>

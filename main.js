@@ -8,6 +8,7 @@ const settings = Array.from(document.querySelectorAll('.tool-settings .setting')
 const _canv = document.querySelector('.canvas canvas');
 const context = createCanvas({ canvas: _canv });
 const btnSave = tools.filter(t => t.id === 'tool-save')[0];
+const btnFullscreen = document.getElementById('toggle-fullscreen');
 
 // Get settings elements and add event listeners
 settings.forEach(setting => {
@@ -26,8 +27,8 @@ tools.forEach(tool => tool.addEventListener('click', toolOnClick));
 
 // Set hold&drag(draw) and click(fill) listener for canvas
 appState.state.canvas.addEventListener('mouseup', mouseReleased);
-appState.state.canvas.addEventListener('mouseleave', mouseReleased);
 appState.state.canvas.addEventListener('click', bucketFill);
+btnFullscreen.addEventListener('click', toggleFullscreen);
 
 // If mouse leaves canvas while holding down, reset drag state
 appState.state.canvas.addEventListener('mousedown', () => appState.commit(state => {
@@ -128,6 +129,22 @@ function bucketFill(e) {
   ff.fill(settings.color, x, y, 0);
   context.putImageData(ff.imageData, 0, 0);
   
+}
+
+// Fullscreen canvas toggler onlick handler
+function toggleFullscreen(e) {
+  const canvasHolder = document.getElementById('canvas-holder');
+
+  if (canvasHolder.classList?.contains('fullscreen')) {
+    appState.state.canvas.width = 650;
+    appState.state.canvas.height = 650;
+
+    return canvasHolder.classList?.remove('fullscreen');
+  }
+
+  appState.state.canvas.width = window.innerWidth;
+  appState.state.canvas.height = window.innerHeight;
+  canvasHolder.classList?.add('fullscreen');
 }
 
 // Hell breaks loose here :)
